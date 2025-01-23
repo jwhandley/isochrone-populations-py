@@ -18,10 +18,10 @@ load_dotenv()
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # You can specify a list of allowed origins instead of "*"
+    allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"],  # Specify allowed methods like "GET", "POST", etc.
-    allow_headers=["*"],  # Specify allowed headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
