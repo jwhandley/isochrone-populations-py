@@ -5,12 +5,10 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "boto3>=1.36.4",
     "fastapi>=0.115.6",
     "python-dotenv>=1.0.1",
-    "rasterio[s3]>=1.4.3",
+    "rasterio>=1.4.3",
     "shapely>=2.0.6",
     "traveltimepy>=3.9.19",
     "tzfpy>=0.16.2",
-    "uvicorn>=0.34.0",
 ]
