@@ -29,7 +29,7 @@ async def get_isochrone(
 ) -> FeatureCollection:
     async with httpx.AsyncClient() as client:
         resp = await client.get(
-            f"https://api.geoapify.com/v1/isoline?lat={lat}&lon={lng}&type=time&mode=transit&range={travel_time}&apiKey={api_key}"
+            f"https://api.geoapify.com/v1/isoline?lat={lat}&lon={lng}&type=time&mode=approximated_transit&range={travel_time}&apiKey={api_key}"
         )
 
         return FeatureCollection(**resp.json())
