@@ -1,12 +1,11 @@
 [project]
 name = "isochrone-populations-py"
 version = "0.1.0"
-description = "Add your description here"
+description = "Population within a given time from a place by public transportation"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.6",
-    "geojson-pydantic>=1.2.0",
     "python-dotenv>=1.0.1",
     "rasterio>=1.4.3",
     "shapely>=2.0.6",
