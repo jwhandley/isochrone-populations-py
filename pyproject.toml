@@ -1,13 +1,15 @@
 [project]
-name = "isochrone-populations-py"
+name = "isochrone-populations"
 version = "0.1.0"
 description = "Population within a given time from a place by public transportation"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi[standard]>=0.115.6",
+    "geojson-pydantic>=1.2.0",
+    "httpx>=0.28.1",
     "python-dotenv>=1.0.1",
     "rasterio>=1.4.3",
     "shapely>=2.0.6",
-    "traveltimepy>=3.9.19",
+    "uvicorn>=0.34.0",
 ]

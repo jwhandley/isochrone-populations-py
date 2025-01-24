@@ -3,11 +3,11 @@ from typing import Dict
 from fastapi import FastAPI, HTTPException, Query
 from dotenv import load_dotenv
 from geojson_pydantic import FeatureCollection
+import httpx
 import rasterio
 from rasterio.mask import mask
 import shapely
 from starlette.middleware.cors import CORSMiddleware
-from traveltimepy import Transportation, TravelTimeSdk, Coordinates
 
 load_dotenv()
 app = FastAPI()
@@ -18,25 +18,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Initialize the TravelTime SDK client
-client = TravelTimeSdk(
-    app_id=os.getenv("APP_ID") or "", api_key=os.getenv("API_KEY") or ""
-)
+api_key = os.getenv("GEOAPIFY_API_KEY")
+print(api_key)
 
 
 async def get_isochrone(
-    client: TravelTimeSdk,
     lat: float,
     lng: float,
     travel_time: int,
 ) -> FeatureCollection:
-    response = await client.time_map_fast_geojson_async(
-        coordinates=[Coordinates(lat=lat, lng=lng)],
-        transportation=Transportation(type="public_transport"),
-        travel_time=travel_time,
-    )
-    return response
+    async with httpx.AsyncClient() as client:
+        resp = await client.get(
+            f"https://api.geoapify.com/v1/isoline?lat={lat}&lon={lng}&type=time&mode=transit&range={travel_time}&apiKey={api_key}"
+        )
+
+        return FeatureCollection(**resp.json())
 
 
 def population_in_geojson(geojson: FeatureCollection) -> int:
@@ -70,7 +66,7 @@ async def get_isochrone_data(
     """
     try:
         # Generate the isochrone GeoJSON
-        geojson = await get_isochrone(client, lat, lng, travel_time)
+        geojson = await get_isochrone(lat, lng, travel_time)
 
         # Calculate the population within the isochrone
         pop = population_in_geojson(geojson)
