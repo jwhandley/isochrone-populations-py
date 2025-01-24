@@ -10,4 +10,5 @@ dependencies = [
     "python-dotenv>=1.0.1",
     "rasterio>=1.4.3",
     "shapely>=2.0.6",
+    "traveltimepy>=3.9.19",
 ]
